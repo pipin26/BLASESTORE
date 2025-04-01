@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLASESTORE - Order Joki Mobile Legends</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffe4e1;
+        }
+        header {
+            background-color: #ff69b4;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        header img {
+            width: 80px;
+            height: auto;
+            display: block;
+            margin: 0 auto 10px;
+        }
+        .container {
+            padding: 2rem;
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 0.5rem 0 0.2rem;
+            font-weight: bold;
+            color: #ff1493;
+        }
+        input, select {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ffb6c1;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #ff1493;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+        table, th, td {
+            border: 1px solid #ffb6c1;
+        }
+        th, td {
+            padding: 1rem;
+            text-align: left;
+        }
+        th {
+            background-color: #ff69b4;
+            color: white;
+        }
+    </style>
+    <script>
+        function calculatePrice() {
+            const matchesStars = parseInt(document.getElementById("matchesStars").value) || 0;
+            const rank = document.getElementById("rankFrom").value;
+            const jokiOption = document.getElementById("jokiOption").value;
+
+            // Harga per bintang berdasarkan rank
+            let pricePerStar = 0;
+            switch (rank) {
+                case "Master I":
+                case "Master II":
+                case "Master III":
+                case "Master IV":
+                    pricePerStar = 3000;
+                    break;
+                case "Grandmaster I":
+                case "Grandmaster II":
+                case "Grandmaster III":
+                case "Grandmaster IV":
+                case "Grandmaster V":
+                    pricePerStar = 4000;
+                    break;
+                case "Epic I":
+                case "Epic II":
+                case "Epic III":
+                case "Epic IV":
+                case "Epic V":
+                    pricePerStar = 5000;
+                    break;
+                case "Legend I":
+                case "Legend II":
+                case "Legend III":
+                case "Legend IV":
+                case "Legend V":
+                    pricePerStar = 7000;
+                    break;
+                case "Mythic":
+                    pricePerStar = 12000;
+                    break;
+                case "Mythic Honor":
+                    pricePerStar = 15000;
+                    break;
+                case "Mythic Glory":
+                    pricePerStar = 17000;
+                    break;
+                case "Mythic Immortal":
+                    pricePerStar = 23000;
+                    break;
+            }
+
+            // Biaya dasar
+            let totalPrice = matchesStars * pricePerStar;
+
+            // Tambahan biaya untuk Joki Gendong
+            if (jokiOption === "Joki Gendong") {
+                totalPrice += matchesStars * 1000;
+            }
+
+            document.getElementById("price").value = totalPrice;
+        }
+
+        function addOrderToTable() {
+            const customerName = document.getElementById("customerName").value;
+            const rankFrom = document.getElementById("rankFrom").value;
+            const rankTo = document.getElementById("rankTo").value;
+            const matchesStars = document.getElementById("matchesStars").value;
+            const price = document.getElementById("price").value;
+            const date = document.getElementById("date").value;
+            const jokiOption = document.getElementById("jokiOption").value;
+
+            // Menambahkan data ke tabel
+            const table = document.getElementById("orderTableBody");
+            const row = table.insertRow();
+            row.insertCell(0).textContent = customerName;
+            row.insertCell(1).textContent = rankFrom;
+            row.insertCell(2).textContent = rankTo;
+            row.insertCell(3).textContent = matchesStars;
+            row.insertCell(4).textContent = jokiOption;
+            row.insertCell(5).textContent = price;
+            row.insertCell(6).textContent = date;
+
+            // Mengosongkan form setelah submit
+            document.getElementById("orderForm").reset();
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <img src="C:\Users\MyBook Hype AMD\OneDrive\Documents\logo.jpg">
+        <h1>BLASESTORE</h1>
+        <p>Order Joki Mobile Legends</p>
+    </header>
+    <div class="container">
+        <form id="orderForm" onsubmit="addOrderToTable(); return false;">
+            <label for="customerName">Nama Customer:</label>
+            <input type="text" id="customerName" name="customerName" placeholder="Masukkan nama Anda" required>
+
+            <label for="rankFrom">Dari Rank:</label>
+            <select id="rankFrom" name="rankFrom" onchange="calculatePrice()" required>
+                <option value="">Pilih Rank Awal</option>
+                <option value="Master I">Master I</option>
+                <option value="Master II">Master II</option>
+                <option value="Master III">Master III</option>
+                <option value="Master IV">Master IV</option>
+                <option value="Grandmaster I">Grandmaster I</option>
+                <option value="Grandmaster II">Grandmaster II</option>
+                <option value="Grandmaster III">Grandmaster III</option>
+                <option value="Grandmaster IV">Grandmaster IV</option>
+                <option value="Grandmaster V">Grandmaster V</option>
+                <option value="Epic I">Epic I</option>
+                <option value="Epic II">Epic II</option>
+                <option value="Epic III">Epic III</option>
+                <option value="Epic IV">Epic IV</option>
+                <option value="Epic V">Epic V</option>
+                <option value="Legend I">Legend I</option>
+                <option value="Legend II">Legend II</option>
+                <option value="Legend III">Legend III</option>
+                <option value="Legend IV">Legend IV</option>
+                <option value="Legend V">Legend V</option>
+                <option value="Mythic">Mythic</option>
+                <option value="Mythic Honor">Mythic Honor</option>
+                <option value="Mythic Glory">Mythic Glory</option>
+                <option value="Mythic Immortal">Mythic Immortal</option>
+            </select>
+
+            <label for="rankTo">Ke Rank:</label>
+            <select id="rankTo" name="rankTo" required>
+
+                <!-- Sama seperti Rank Awal -->
+            </select>
+
+            <label for="matchesStars">Jumlah Match/Bintang:</label>
+            <input type="number" id="matchesStars" name="matchesStars" placeholder="Masukkan jumlah match/bintang" oninput="calculatePrice()" required>
+
+            <label for="jokiOption">Opsi Joki:</label>
+            <select id="jokiOption" name="jokiOption" onchange="calculatePrice()" required>
+                <option value="Joki Akun">Joki Akun</option>
+                <option value="Joki Gendong">Joki Gendong</option>
+            </select>
+
+            <label for="price">Harga Total:</label>
+            <input type="text" id="price" name="price" placeholder="Harga Total" readonly>
+
+            <label for="date">Tanggal Pemesanan:</label>
+            <input type="date" id="date" name="date" required>
+
+            <button type="submit">Submit Order</button>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nama Customer</th>
+                    <th>Dari Rank</th>
+                    <th>Ke Rank</th>
+                    <th>Jumlah Match/Bintang</th>
+                    <th>Opsi Joki</th>
+                    <th>Harga Total</th>
+                    <th>Tanggal Pemesanan</th>
+                </tr>
+            </thead>
+            <tbody id="orderTableBody">
+               
